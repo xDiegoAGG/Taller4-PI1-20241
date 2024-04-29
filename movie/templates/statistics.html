@@ -1,0 +1,127 @@
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistics</title>
+</head>
+<body>
+    <h1>Estadísticas de películas por año</h1>
+    <ul>
+        {% for movie in movies_by_year %}
+            <li>Año: {{ movie.year }} - Total de películas: {{ movie.total }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráfico de Barras</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Gráfico de Barras</h1>
+
+    <canvas id="myChart" width="800" height="400"></canvas>
+
+    <script>
+        // Datos del gráfico
+        const moviesData = JSON.parse('{{ movies_by_year_json|safe }}');
+
+        // Obtener los años como etiquetas y las alturas de las barras
+        const labels = Object.keys(moviesData);
+        const dataValues = Object.values(moviesData);
+       
+        const years = moviesData.map(item => item.year.toString());
+        const totals = moviesData.map(item => item.total);
+        console.log('Años:', years);
+        console.log('Totales:', totals);
+
+        // Configuración del gráfico
+        const config = {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Movies',
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1,
+                    data: dataValues
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        };
+
+        // Crear el gráfico
+        var myChart = new Chart(
+            document.getElementById('myChart'),
+            config
+        );
+    </script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráfico de Barras</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Gráfico de Barras - Cantidad de Películas por Año</h1>
+    <canvas id="myChart" width="800" height="400"></canvas>
+
+    <script>
+        // Obtener los datos JSON de películas por año
+        const moviesByYearJson = JSON.parse('{{ movies_by_year_json|safe }}');
+
+        // Extraer años y totales de películas
+        const years1 = moviesByYearJson.map(item => item.year.toString());
+        const totals1 = moviesByYearJson.map(item => item.total);
+
+        // Configurar los datos del gráfico
+        const data = {
+            labels: years,
+            datasets: [{
+                label: 'Cantidad de Películas por Año',
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1,
+                data: totals
+            }]
+        };
+
+        // Configurar opciones del gráfico
+        const options = {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        };
+
+        // Crear el gráfico de barras
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'bar',
+            data: data,
+            options: options
+        });
+    </script>
+</body>
+</html>
+

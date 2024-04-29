@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Add Review for {{ movie.title }}</h1>
+<h1>Update Review for {{ review.movie.title }}</h1>
 <form method="POST">
 {% csrf_token %}
 {{ form.as_p }}
@@ -9,7 +9,7 @@
         {{ error }}
     </div>
 {% endif %}  
-<button type="submit">Add Review</button>
+<button type="submit">Update Review</button>
 </form>
 {% endblock content %}                   
                    

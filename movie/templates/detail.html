@@ -18,21 +18,31 @@
                 Add Review
           </a>  
           {% endif %}   
+          <hr />
+          <h3>Reviews</h3>
+          <ul class="list-group">
+          {% for review in reviews %}  
+            <li class="list-group-item pb-3 pt-3">
+            <h5 class="card-title">
+              Review by {{ review.user.username }} 
+            </h5>  
+            <h6 class="card-subtitle mb-2 text-muted"> 
+              {{ review.date }} 
+            </h6> 
+            <p class="card-text">{{ review.text }}</p>
+            {% if user.is_authenticated and user == review.user %}
+              <a class="btn btn-primary me-2">Edit</a> 
+              <a class="btn btn-danger">Delete</a>
+            {% endif %}
+             </li>  
+          {% endfor %}
+        </ul>
+        </div>
+      </div>
+    </div>
+  </div>  
         </div>
       </div>
     </div>
 </div>      
-{% for review in reviews %}  
-  <div class="card mb-3" style="max-width: 540px;">
-    <div class="row g-0">
-      <div class="col-md-8">
-        <div class="card-body">          
-          <h5 class="card-title">{{ review.user }} reviewed: {{ review.text }}</h5>          
-          <p class="card-text">{{ review.date }}</p>    
-               
-        </div>
-      </div>
-    </div>
-  </div>     
-{% endfor %}
 {% endblock content %}

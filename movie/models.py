@@ -16,8 +16,8 @@ class Movie(models.Model):
 
 class Review(models.Model): 
     text = models.CharField(max_length=100) 
-    date = models.DateTimeField(auto_now_add=True) 
-    user = models.ForeignKey(User,on_delete=models.CASCADE) 
+    date = models.DateTimeField(auto_now_add=True)  # the current datetime will be automatically filled in
+    user = models.ForeignKey(User,on_delete=models.CASCADE) # a user can create multiple reviews
     movie = models.ForeignKey(Movie,on_delete=models.CASCADE) 
     watchAgain = models.BooleanField() 
     

@@ -113,3 +113,8 @@ def updatereview(request, review_id):
             return redirect('detail', review.movie.id) 
         except ValueError: 
             return render(request, 'updatereview.html', {'review': review,'form':form,'error':'Bad data in form'})
+        
+def deletereview(request, review_id): 
+    review = get_object_or_404(Review, pk=review_id, user=request.user) 
+    review.delete() 
+    return redirect('detail', review.movie.id)
